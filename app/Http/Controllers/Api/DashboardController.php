@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -30,7 +31,7 @@ class DashboardController extends Controller
             $recentUsers = User::with('roles')->latest()->take(5)->get();
             
             // Debug logging for recent users
-            \Log::info('Recent users data for dashboard:', [
+            Log::info('Recent users data for dashboard:', [
                 'user_id' => $user->id,
                 'recent_users' => $recentUsers->map(function ($u) {
                     return [
