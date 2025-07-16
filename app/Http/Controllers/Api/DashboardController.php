@@ -1,0 +1,65 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
+class DashboardController extends Controller
+{
+
+    /**
+     * Get dashboard data based on user role
+     */
+    public function index(Request $request)
+    {
+        $user = $request->user();
+        $userRole = $user->roles->first();
+        
+        $data = [
+            'user' => $user->load('roles', 'permissions'),
+            'stats' => [],
+            'permissions' => $user->getAllPermissions()->pluck('name'),
+        ];
+
+        // Admin dashboard data
+        if ($user->hasRole('admin')) {
+            $data['stats'] = [
+                'total_users' => User::count(),
+                'total_roles' => Role::count(),
+                'total_permissions' => Permission::count(),
+                'recent_users' => User::latest()->take(5)->get(),
+            ];
+        }
+        
+        // Moderator dashboard data
+        elseif ($user->hasRole('moderator')) {
+            $data['stats'] = [
+                'total_users' => User::count(),
+                'recent_users' => User::latest()->take(5)->get(),
+            ];
+        }
+        
+        // Regular user dashboard data
+        else {
+            $data['stats'] = [
+                'welcome_message' => 'Welcome to your dashboard!',
+                'profile' => $user->only(['name', 'email']),
+            ];
+        }
+
+        return response()->json($data);
+    }
+
+    /**
+     * Get current user profile
+     */
+    public function profile(Request $request)
+    {
+        $user = $request->user();
+        return response()->json($user->load('roles', 'permissions'));
+    }
+}

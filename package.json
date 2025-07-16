@@ -1,0 +1,17 @@
+{
+  "name": "laravel-react-app",
+  "version": "1.0.0",
+  "description": "Laravel 12 + React SPA with role-based authentication",
+  "scripts": {
+    "dev": "concurrently \"php artisan serve\" \"cd frontend && npm start\"",
+    "dev:backend": "php artisan serve",
+    "dev:frontend": "cd frontend && npm start",
+    "build": "cd frontend && npm run build",
+    "fresh": "php artisan migrate:fresh --seed",
+    "setup": "composer install && cd frontend && npm install",
+    "test": "php artisan test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0"
+  }
+}
