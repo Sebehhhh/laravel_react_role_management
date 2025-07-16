@@ -1,6 +1,19 @@
 # 🛡️ Laravel React Role Management System
 
-A comprehensive role-based access control (RBAC) system built with Laravel 11 and React TypeScript. This system provides a complete solution for managing users, roles, and permissions with an intuitive admin dashboard.
+A comprehensive role-based access control (RBAC) system built with Laravel 12 and React TypeScript. This system provides a complete solution for managing users, roles, and permissions with an intuitive admin dashboard.
+
+## 📋 Current Version Info
+
+| Component | Version | Status |
+|-----------|---------|--------|
+| Laravel Framework | 12.20.0 | ✅ Latest |
+| PHP | 8.4.1 | ✅ Latest |
+| React | 19.1.0 | ✅ Latest |
+| TypeScript | 4.9.5 | ✅ Stable |
+| Node.js | 18.20.6 | ✅ LTS |
+| TailwindCSS | 3.4.17 | ✅ Latest |
+| Laravel Sanctum | 4.0+ | ✅ Latest |
+| Spatie Permission | 6.20+ | ✅ Latest |
 
 ## 🚀 Features
 
@@ -55,26 +68,59 @@ A comprehensive role-based access control (RBAC) system built with Laravel 11 an
 ## 🛠️ Technology Stack
 
 ### Backend
-- **Laravel 11** - PHP framework
-- **Laravel Sanctum** - API authentication
-- **Spatie Permission** - Role & permission management
-- **MySQL** - Database
-- **PHP 8.1+** - Server-side language
+- **Laravel 12.20.0** - PHP framework
+- **Laravel Sanctum 4.0+** - API authentication
+- **Spatie Permission 6.20+** - Role & permission management
+- **SQLite** - Database (default)
+- **PHP 8.2+** - Server-side language (tested with PHP 8.4.1)
 
 ### Frontend
-- **React 18** - JavaScript library
-- **TypeScript** - Type safety
-- **TailwindCSS** - Styling framework
-- **React Router** - Client-side routing
-- **Axios** - HTTP client
+- **React 19.1.0** - JavaScript library
+- **TypeScript 4.9.5** - Type safety
+- **TailwindCSS 3.4.17** - Styling framework
+- **React Router 6.30.1** - Client-side routing
+- **Axios 1.10.0** - HTTP client
+- **Node.js 18.20.6** - Runtime environment
+- **React Scripts 5.0.1** - Build tools
+- **Testing Library** - Testing utilities
+
+### Development Tools
+- **Laravel Breeze 2.3+** - Authentication scaffolding
+- **Laravel Pint 1.13+** - Code style fixer
+- **PHPUnit 11.5.3+** - PHP testing framework
+- **Concurrently 8.2.0+** - Run multiple commands
+- **PostCSS 8.5.6+** - CSS processing
+- **Autoprefixer 10.4.21+** - CSS vendor prefixes
+
+## 📁 Project Structure
+
+```
+laravel_app/
+├── app/                    # Laravel application code
+│   ├── Http/Controllers/   # API controllers
+│   ├── Models/            # Eloquent models
+│   └── Providers/         # Service providers
+├── database/              # Database migrations and seeders
+├── frontend/              # React TypeScript application
+│   ├── src/
+│   │   ├── components/    # React components
+│   │   ├── contexts/      # React contexts
+│   │   └── services/      # API services
+│   ├── public/           # Static assets
+│   └── package.json      # Frontend dependencies
+├── routes/               # API routes
+├── composer.json         # Backend dependencies
+├── package.json          # Root package.json for scripts
+└── README.md            # This file
+```
 
 ## 🚀 Installation
 
 ### Prerequisites
-- PHP 8.1 or higher
-- Node.js 16 or higher
-- Composer
-- MySQL
+- **PHP 8.2 or higher** (tested with PHP 8.4.1)
+- **Node.js 18 or higher** (tested with Node.js 18.20.6)
+- **Composer 2.x**
+- **SQLite** (default) or **MySQL** (optional)
 
 ### Backend Setup
 
@@ -97,13 +143,16 @@ php artisan key:generate
 
 4. **Database configuration**
 ```bash
-# Edit .env file with your database credentials
-DB_CONNECTION=mysql
-DB_HOST=127.0.0.1
-DB_PORT=3306
-DB_DATABASE=laravel_role_management
-DB_USERNAME=your_username
-DB_PASSWORD=your_password
+# Default configuration uses SQLite (no additional setup required)
+DB_CONNECTION=sqlite
+
+# Or for MySQL, edit .env file with your database credentials:
+# DB_CONNECTION=mysql
+# DB_HOST=127.0.0.1
+# DB_PORT=3306
+# DB_DATABASE=laravel_role_management
+# DB_USERNAME=your_username
+# DB_PASSWORD=your_password
 ```
 
 5. **Run migrations and seeders**
@@ -134,7 +183,45 @@ npm install
 npm start
 ```
 
+### 🚀 Quick Start (Both Backend & Frontend)
+
+For development, you can run both backend and frontend simultaneously:
+
+```bash
+# Install all dependencies
+npm run setup
+
+# Run both backend and frontend
+npm run dev
+
+# Or run them separately
+npm run dev:backend  # Laravel server at http://localhost:8000
+npm run dev:frontend # React app at http://localhost:3000
+```
+
+### 🔄 Fresh Installation
+```bash
+# Reset database and reseed
+npm run fresh
+```
+
+### 🧪 Testing
+```bash
+# Run backend tests
+npm run test
+# or
+php artisan test
+
+# Run frontend tests
+cd frontend && npm test
+```
+
 ## 🔧 Configuration
+
+### Application URLs
+- **Backend API**: http://localhost:8000
+- **Frontend App**: http://localhost:3000
+- **Database**: SQLite (file-based, no server needed)
 
 ### Default Users
 After running the seeders, you can login with:
