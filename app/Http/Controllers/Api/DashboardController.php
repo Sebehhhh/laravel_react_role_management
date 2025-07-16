@@ -27,11 +27,26 @@ class DashboardController extends Controller
 
         // Admin dashboard data
         if ($user->hasRole('admin')) {
+            $recentUsers = User::with('roles')->latest()->take(5)->get();
+            
+            // Debug logging for recent users
+            \Log::info('Recent users data for dashboard:', [
+                'user_id' => $user->id,
+                'recent_users' => $recentUsers->map(function ($u) {
+                    return [
+                        'id' => $u->id,
+                        'name' => $u->name,
+                        'email' => $u->email,
+                        'roles' => $u->roles->pluck('name')
+                    ];
+                })->toArray()
+            ]);
+            
             $data['stats'] = [
                 'total_users' => User::count(),
                 'total_roles' => Role::count(),
                 'total_permissions' => Permission::count(),
-                'recent_users' => User::latest()->take(5)->get(),
+                'recent_users' => $recentUsers,
             ];
         }
         
@@ -39,7 +54,7 @@ class DashboardController extends Controller
         elseif ($user->hasRole('moderator')) {
             $data['stats'] = [
                 'total_users' => User::count(),
-                'recent_users' => User::latest()->take(5)->get(),
+                'recent_users' => User::with('roles')->latest()->take(5)->get(),
             ];
         }
         

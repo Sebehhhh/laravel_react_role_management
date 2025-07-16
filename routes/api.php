@@ -6,13 +6,14 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\DashboardController;
+use Illuminate\Support\Facades\Log;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     $user = $request->user();
     $user->load('roles.permissions');
     
     // Debug logging to track role consistency
-    \Log::info('User roles on /user endpoint:', [
+    Log::info('User roles on /user endpoint:', [
         'user_id' => $user->id,
         'roles' => $user->roles->toArray(),
         'permissions' => $user->getAllPermissions()->toArray()

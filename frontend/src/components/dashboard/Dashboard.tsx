@@ -12,6 +12,8 @@ const Dashboard: React.FC = () => {
     const fetchDashboard = async () => {
       try {
         const data = await authService.getDashboard();
+        console.log('Dashboard data received:', data);
+        console.log('Recent users:', data.stats?.recent_users);
         setDashboardData(data);
       } catch (error) {
         console.error('Error fetching dashboard:', error);

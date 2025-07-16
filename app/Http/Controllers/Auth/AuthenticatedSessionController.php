@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -21,7 +22,7 @@ class AuthenticatedSessionController extends Controller
         $user->load('roles.permissions');
 
         // Debug logging to track role consistency
-        \Log::info('User roles on login:', [
+        Log::info('User roles on login:', [
             'user_id' => $user->id,
             'roles' => $user->roles->toArray(),
             'permissions' => $user->getAllPermissions()->toArray()
